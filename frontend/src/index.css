@@ -1,0 +1,176 @@
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -----------------------------------------------------
+    BASE GLOBAL STYLES
+------------------------------------------------------ */
+@layer base {
+  html {
+    font-family: theme("fontFamily.sans");
+    scroll-behavior: auto;
+  }
+
+  body {
+    @apply bg-brand-mist text-brand-charcoal;
+  }
+}
+
+/* -----------------------------------------------------
+   GLOBAL FADE ANIMATIONS
+------------------------------------------------------ */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Fade Down (shared by all pages — safe merged) */
+@keyframes fadeDown {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeDown {
+  animation: fadeDown 0.8s ease-out forwards;
+}
+
+/* Fade Up */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(5px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.animate-fadeUp {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+/* Stagger for cards */
+.animate-stagger {
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+/* Delay helpers */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+/* -----------------------------------------------------
+   ZOOM + LIFT HOVER
+------------------------------------------------------ */
+.zoom-hover {
+  transition: transform 0.5s ease;
+}
+.zoom-hover:hover {
+  transform: scale(1.06);
+}
+
+.lift-hover {
+  transition: all 0.4s ease;
+}
+.lift-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 18px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* -----------------------------------------------------
+   CHAT SUPPORT POPUP ANIMATION
+------------------------------------------------------ */
+@keyframes chatPopup {
+  0% { opacity: 0; transform: translateY(40px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.chat-popup {
+  animation: chatPopup 0.4s ease-out;
+}
+
+/* -----------------------------------------------------
+   GOLD SHIMMER EFFECT (global + wedding)
+------------------------------------------------------ */
+@keyframes shimmerText {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+.shimmer-gold {
+  background: linear-gradient(90deg, #d4a900, #f8e27e, #d4a900);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmerText 3s infinite linear;
+}
+
+/* -----------------------------------------------------
+   💛 WEDDING PAGE – PREMIUM ANIMATIONS
+------------------------------------------------------ */
+
+/* BG Gradient */
+.wedding-bg {
+  background: linear-gradient(to bottom, #fff9f5, #f7f1ff, #ebe6ff);
+}
+
+/* Wedding Card */
+.wedding-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  transition: all 0.35s ease;
+}
+
+.wedding-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+}
+
+/* Wedding Image Zoom */
+.wedding-img-wrap {
+  height: 260px;
+  overflow: hidden;
+}
+
+.wedding-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.wedding-card:hover .wedding-img {
+  transform: scale(1.14);
+}
+
+/* Buttons */
+.btn-luxe {
+  background: #0d1b2a;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  transition: all 0.35s ease;
+}
+
+.btn-luxe:hover {
+  background: #d4a900;
+  color: #0d1b2a;
+}
+
+/* Wishlist Heart */
+.wishlist-btn {
+  border: 2px solid #d4a900;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  color: #0d1b2a;
+}
+
+.wishlist-active {
+  background: #d4a900;
+  color: white !important;
+  transform: scale(1.1);
+}

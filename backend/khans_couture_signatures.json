@@ -1,0 +1,506 @@
+[
+  {
+    "id": 1,
+    "sku": "KC-SIG-001",
+    "slug": "royal-zari-bridal-lehenga",
+    "title": "Royal Zari Bridal Lehenga",
+    "tagline": "A heirloom-inspired statement for your most cherished day.",
+    "description": "A richly detailed bridal lehenga designed for wedding celebrations and timeless photographs.",
+    "craftDetails": "Decorative zari-inspired embroidery with carefully placed embellishment and a coordinated finish.",
+    "artisanName": "Khans Couture Artisan Team",
+    "limitedEdition": true,
+    "editionCount": 12,
+    "images": [
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Indian",
+    "subCategory": "Bridal Lehenga",
+    "fabric": "Silk blend",
+    "occasion": "Wedding",
+    "genderFocus": "Women",
+    "price": 24999,
+    "currency": "INR",
+    "colors": [
+      "Maroon",
+      "Antique Gold"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "Custom"
+    ],
+    "signatureBadge": "Bridal Signature",
+    "embroideryDetails": "Zari-inspired motifs with ornate border detailing.",
+    "weightGrams": 2400,
+    "dimensionsCm": {
+      "length": 105,
+      "width": 150
+    },
+    "care": "Dry clean only. Store in a breathable garment cover.",
+    "stock": 2,
+    "rating": 4.9,
+    "reviewsCount": 18,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 2,
+    "sku": "KC-SIG-002",
+    "slug": "heritage-zari-anarkali",
+    "title": "Heritage Zari Anarkali",
+    "tagline": "Classic movement, crafted for celebrations.",
+    "description": "A graceful Anarkali silhouette for festive evenings, family functions, and formal gatherings.",
+    "craftDetails": "Flared panel construction with zari-inspired detailing and a coordinated dupatta.",
+    "artisanName": "Khans Couture Artisan Team",
+    "limitedEdition": true,
+    "editionCount": 20,
+    "images": [
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1583391733956-6c78276477e3?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Indian",
+    "subCategory": "Anarkali Suit",
+    "fabric": "Georgette blend",
+    "occasion": "Festive",
+    "genderFocus": "Women",
+    "price": 8999,
+    "currency": "INR",
+    "colors": [
+      "Emerald Green",
+      "Gold"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "Custom"
+    ],
+    "signatureBadge": "Heritage Edit",
+    "embroideryDetails": "Fine decorative motifs around the neckline and hem.",
+    "weightGrams": 1700,
+    "dimensionsCm": {
+      "length": 145,
+      "width": 140
+    },
+    "care": "Dry clean recommended. Iron on low heat with a protective cloth.",
+    "stock": 5,
+    "rating": 4.8,
+    "reviewsCount": 12,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 3,
+    "sku": "KC-SIG-003",
+    "slug": "hand-embroidered-occasion-suit",
+    "title": "Hand-Embroidered Occasion Suit",
+    "tagline": "Thoughtful details, made to feel personal.",
+    "description": "An elegant suit set for intimate celebrations, dinners, and festive occasions.",
+    "craftDetails": "Decorative hand-finished embroidery accents with a coordinated plain dupatta.",
+    "artisanName": "Khans Couture Artisan Team",
+    "limitedEdition": true,
+    "editionCount": 30,
+    "images": [
+      "https://images.unsplash.com/photo-1583391733956-6c78276477e3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Indian",
+    "subCategory": "Embroidered Suit",
+    "fabric": "Cotton silk blend",
+    "occasion": "Festive",
+    "genderFocus": "Women",
+    "price": 5499,
+    "currency": "INR",
+    "colors": [
+      "Dusty Rose",
+      "Ivory"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "Custom"
+    ],
+    "signatureBadge": "Crafted Detail",
+    "embroideryDetails": "Decorative floral embroidery on the neckline and sleeves.",
+    "weightGrams": 1200,
+    "dimensionsCm": {
+      "length": 112,
+      "width": 120
+    },
+    "care": "Gentle dry clean. Fold with tissue between embellished areas.",
+    "stock": 7,
+    "rating": 4.7,
+    "reviewsCount": 9,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 4,
+    "sku": "KC-SIG-004",
+    "slug": "modern-luxe-co-ord",
+    "title": "Modern Luxe Co-ord",
+    "tagline": "Clean lines for elevated everyday styling.",
+    "description": "A contemporary co-ord set designed for brunches, social events, and versatile daily wear.",
+    "craftDetails": "Minimal detailing, coordinated separates, and a relaxed tailored silhouette.",
+    "artisanName": "Khans Couture Design Studio",
+    "limitedEdition": false,
+    "editionCount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Western",
+    "subCategory": "Co-ord Set",
+    "fabric": "Crepe blend",
+    "occasion": "Casual",
+    "genderFocus": "Women",
+    "price": 2499,
+    "currency": "INR",
+    "colors": [
+      "Black",
+      "Beige"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "signatureBadge": "Modern Essential",
+    "embroideryDetails": "Minimal surface detailing with clean finishing.",
+    "weightGrams": 850,
+    "dimensionsCm": {
+      "length": 75,
+      "width": 110
+    },
+    "care": "Machine wash cold on a gentle cycle; follow garment label.",
+    "stock": 9,
+    "rating": 4.5,
+    "reviewsCount": 15,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 5,
+    "sku": "KC-SIG-005",
+    "slug": "mens-wedding-bandhgala",
+    "title": "Men's Wedding Bandhgala",
+    "tagline": "A composed look for formal celebrations.",
+    "description": "A refined bandhgala-inspired outfit suited to wedding receptions and formal festive events.",
+    "craftDetails": "Structured collar, clean front fastening, and considered finishing details.",
+    "artisanName": "Khans Couture Design Studio",
+    "limitedEdition": true,
+    "editionCount": 15,
+    "images": [
+      "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Indian",
+    "subCategory": "Bandhgala",
+    "fabric": "Jacquard blend",
+    "occasion": "Wedding",
+    "genderFocus": "Men",
+    "price": 7499,
+    "currency": "INR",
+    "colors": [
+      "Navy",
+      "Black"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL",
+      "Custom"
+    ],
+    "signatureBadge": "Men's Occasion Edit",
+    "embroideryDetails": "Subtle tonal texture with restrained decorative accents.",
+    "weightGrams": 1500,
+    "dimensionsCm": {
+      "length": 78,
+      "width": 115
+    },
+    "care": "Dry clean only. Hang on a broad-shouldered hanger.",
+    "stock": 4,
+    "rating": 4.7,
+    "reviewsCount": 11,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 6,
+    "sku": "KC-SIG-006",
+    "slug": "signature-floral-midi-dress",
+    "title": "Signature Floral Midi Dress",
+    "tagline": "An easy statement from day plans to dinner.",
+    "description": "A versatile midi dress with a floral look and an easy-to-style silhouette.",
+    "craftDetails": "Designed around a balanced silhouette and versatile styling options.",
+    "artisanName": "Khans Couture Design Studio",
+    "limitedEdition": false,
+    "editionCount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Western",
+    "subCategory": "Midi Dress",
+    "fabric": "Polyester blend",
+    "occasion": "Casual",
+    "genderFocus": "Women",
+    "price": 1899,
+    "currency": "INR",
+    "colors": [
+      "Floral Mix",
+      "Blue"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "signatureBadge": "Signature Style",
+    "embroideryDetails": "Printed floral pattern; no embroidery.",
+    "weightGrams": 600,
+    "dimensionsCm": {
+      "length": 120,
+      "width": 95
+    },
+    "care": "Machine wash cold with similar colours; air dry.",
+    "stock": 13,
+    "rating": 4.5,
+    "reviewsCount": 14,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 7,
+    "sku": "KC-SIG-007",
+    "slug": "pastel-chikankari-kurti",
+    "title": "Pastel Chikankari Kurti",
+    "tagline": "Light, graceful, and easy to wear.",
+    "description": "A pastel kurti for everyday elegance, casual visits, and relaxed festive styling.",
+    "craftDetails": "Chikankari-inspired decorative stitching with a simple, versatile silhouette.",
+    "artisanName": "Khans Couture Artisan Team",
+    "limitedEdition": false,
+    "editionCount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Indian",
+    "subCategory": "Kurti",
+    "fabric": "Cotton",
+    "occasion": "Casual",
+    "genderFocus": "Women",
+    "price": 1599,
+    "currency": "INR",
+    "colors": [
+      "Powder Blue",
+      "Blush Pink"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "signatureBadge": "Everyday Craft",
+    "embroideryDetails": "Chikankari-inspired motifs on the front panel.",
+    "weightGrams": 450,
+    "dimensionsCm": {
+      "length": 105,
+      "width": 105
+    },
+    "care": "Gentle wash separately; dry in shade.",
+    "stock": 11,
+    "rating": 4.6,
+    "reviewsCount": 8,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 8,
+    "sku": "KC-SIG-008",
+    "slug": "mens-classic-festive-kurta",
+    "title": "Men's Classic Festive Kurta",
+    "tagline": "A timeless staple for family gatherings.",
+    "description": "A classic kurta with a neat finish for festive occasions and smart everyday wear.",
+    "craftDetails": "Straight-cut silhouette with understated finishing and versatile styling.",
+    "artisanName": "Khans Couture Design Studio",
+    "limitedEdition": false,
+    "editionCount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Indian",
+    "subCategory": "Men's Kurta",
+    "fabric": "Cotton blend",
+    "occasion": "Festive",
+    "genderFocus": "Men",
+    "price": 1799,
+    "currency": "INR",
+    "colors": [
+      "Ivory",
+      "Olive"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "signatureBadge": "Classic Edit",
+    "embroideryDetails": "Minimal tonal detailing around the placket.",
+    "weightGrams": 650,
+    "dimensionsCm": {
+      "length": 110,
+      "width": 115
+    },
+    "care": "Wash according to garment label; iron on medium heat.",
+    "stock": 12,
+    "rating": 4.5,
+    "reviewsCount": 10,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 9,
+    "sku": "KC-SIG-009",
+    "slug": "embroidered-wedding-sharara",
+    "title": "Embroidered Wedding Sharara",
+    "tagline": "Celebration-ready with a graceful, flowing finish.",
+    "description": "A coordinated sharara set suited to wedding functions, receptions, and festive gatherings.",
+    "craftDetails": "Decorative embroidery placement with a coordinated top and flowing sharara bottom.",
+    "artisanName": "Khans Couture Artisan Team",
+    "limitedEdition": true,
+    "editionCount": 18,
+    "images": [
+      "https://images.unsplash.com/photo-1583391733956-6c78276477e3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1605763240000-7e93b172d754?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Indian",
+    "subCategory": "Sharara Set",
+    "fabric": "Georgette blend",
+    "occasion": "Wedding",
+    "genderFocus": "Women",
+    "price": 5999,
+    "currency": "INR",
+    "colors": [
+      "Wine",
+      "Rose Gold"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "Custom"
+    ],
+    "signatureBadge": "Wedding Edit",
+    "embroideryDetails": "Decorative embroidery along the bodice and sleeve edges.",
+    "weightGrams": 1600,
+    "dimensionsCm": {
+      "length": 115,
+      "width": 135
+    },
+    "care": "Dry clean only. Store folded in a breathable cover.",
+    "stock": 6,
+    "rating": 4.7,
+    "reviewsCount": 13,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  },
+  {
+    "id": 10,
+    "sku": "KC-SIG-010",
+    "slug": "minimal-tailored-blazer-set",
+    "title": "Minimal Tailored Blazer Set",
+    "tagline": "Modern tailoring with a polished edge.",
+    "description": "A smart blazer set designed for events, office styling, and contemporary occasions.",
+    "craftDetails": "Clean tailoring, coordinated separates, and minimal surface embellishment.",
+    "artisanName": "Khans Couture Design Studio",
+    "limitedEdition": false,
+    "editionCount": 0,
+    "images": [
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "macroShots": [
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "category": "Western",
+    "subCategory": "Blazer Set",
+    "fabric": "Polyester-viscose blend",
+    "occasion": "Formal",
+    "genderFocus": "Women",
+    "price": 3299,
+    "currency": "INR",
+    "colors": [
+      "Black",
+      "Taupe"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "signatureBadge": "Modern Tailoring",
+    "embroideryDetails": "No embroidery; clean tailored finish.",
+    "weightGrams": 1100,
+    "dimensionsCm": {
+      "length": 72,
+      "width": 115
+    },
+    "care": "Dry clean recommended. Steam lightly as needed.",
+    "stock": 7,
+    "rating": 4.4,
+    "reviewsCount": 7,
+    "createdAt": "2026-10-26T17:17:56.809Z",
+    "updatedAt": "2026-10-26T17:17:56.809Z"
+  }
+]
