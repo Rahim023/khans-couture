@@ -20,7 +20,7 @@ export default function SignatureSeries() {
   const { addToCart, showLoginModal: cartLoginModal, setShowLoginModal: setCartLoginModal } = useCart();
   const { addToWishlist, showLoginModal: wishlistLoginModal, setShowLoginModal: setWishlistLoginModal } = useWishlist();
 
-  const API_BASE = (import.meta.env && import.meta.env.VITE_API_BASE) ? import.meta.env.VITE_API_BASE : "http://localhost:5000";
+  const API_BASE = (import.meta.env && import.meta.env.VITE_API_BASE) ? import.meta.env.VITE_API_BASE : "https://khans-couture.onrender.com";
 
   // Sync login modal state from contexts
   useEffect(() => {

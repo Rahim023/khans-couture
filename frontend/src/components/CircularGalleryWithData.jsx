@@ -17,7 +17,7 @@ export default function CircularGalleryWithData({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products"); // Update your backend URL
+        const res = await axios.get("https://khans-couture.onrender.com/api/products"); // Update your backend URL
         const formatted = res.data.map((p) => ({
           img: p.img || p.image,
           title: p.title || p.name,

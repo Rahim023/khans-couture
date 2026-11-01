@@ -10,7 +10,7 @@ import {
 
 const API = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL.replace(/\/api\/?$/, "")}/api`
-  : "http://localhost:5000/api";
+  : "https://khans-couture.onrender.com/api";
 const BACKEND_ORIGIN = API.replace(/\/api\/?$/, "");
 const resolveUploadUrl = (url) => {
   if (!url) return "";

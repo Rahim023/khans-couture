@@ -31,7 +31,7 @@ export default function SignatureProductPage() {
     async function loadProduct() {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/signatures/slug/${slug}`
+          `https://khans-couture.onrender.com/api/signatures/slug/${slug}`
         );
 
         if (!res.ok) return console.error("Signature fetch failed");

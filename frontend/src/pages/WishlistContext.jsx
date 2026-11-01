@@ -11,7 +11,7 @@ export const WishlistProvider = ({ children }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: "https://khans-couture.onrender.com/api",
   });
 
   axiosInstance.interceptors.request.use((config) => {

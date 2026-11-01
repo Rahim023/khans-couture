@@ -35,14 +35,14 @@ export default function ProductPage() {
     async function loadProduct() {
       try {
         // First try to fetch from products endpoint
-        let res = await fetch(`http://localhost:5000/api/products/${id}`);
+        let res = await fetch(`https://khans-couture.onrender.com/api/products/${id}`);
         let data = null;
 
         if (res.ok) {
           data = await res.json();
         } else {
           // If not found in products, try signatures endpoint
-          res = await fetch(`http://localhost:5000/api/signatures/${id}`);
+          res = await fetch(`https://khans-couture.onrender.com/api/signatures/${id}`);
           if (res.ok) {
             data = await res.json();
           }

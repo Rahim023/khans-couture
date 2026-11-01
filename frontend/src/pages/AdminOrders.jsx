@@ -9,7 +9,7 @@ export default function AdminOrders() {
     const loadOrders = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/api/orders", {
+        const res = await fetch("https://khans-couture.onrender.com/api/orders", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

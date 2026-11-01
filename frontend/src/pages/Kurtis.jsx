@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoginGuard from "../components/LoginGuard";
 import ProductCard from "../components/ProductCard";
-import BlurText from "../components/BlurText";
+import BlurText from "../components/blurtext";
 import ShinyText from "../components/ShinyText";
 import { useCart } from "./CartContext";
 import { useWishlist } from "./WishlistContext";
@@ -23,7 +23,7 @@ export default function Kurtis() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const BASE_URL = "http://localhost:5000/api";
+  const BASE_URL = "https://khans-couture.onrender.com/api";
   const filterRef = useRef(null);
   const { showLoginModal: cartLoginModal, setShowLoginModal: setCartLoginModal } = useCart();
   const { showLoginModal: wishlistLoginModal, setShowLoginModal: setWishlistLoginModal } = useWishlist();

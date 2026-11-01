@@ -118,7 +118,7 @@ export default function Checkout() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:5000/api/orders", {
+      const res = await fetch("https://khans-couture.onrender.com/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
