@@ -15,7 +15,7 @@ export const postCustomOrder = async (formData) => {
     return res.json();
   } catch (error) {
     if (error instanceof TypeError && error.message.includes('fetch')) {
-      throw new Error("Connection refused: Unable to reach the server. Please ensure the backend is running on https://khans-couture.onrender.com");
+      throw new Error("Connection refused: Unable to reach the backend at https://khans-couture.onrender.com");
     }
     throw error;
   }

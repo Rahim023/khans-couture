@@ -19,6 +19,7 @@ import { api } from "../services/api";
 
 const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 const HERO_IMAGE = "https://res.cloudinary.com/divypkla0/image/upload/v1780204546/lhnga_lurrsq.jpg";
+const MOBILE_HERO_IMAGE = "https://res.cloudinary.com/divypkla0/image/upload/c_fill,w_900,h_520,q_auto,f_auto/v1780204546/lhnga_lurrsq.jpg";
 
 const countries = ["Canada", "USA", "India", "UK", "Australia", "Germany", "France", "Other"];
 const EMAIL_DOMAIN_TYPOS = {
@@ -266,6 +267,20 @@ export default function Signup() {
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto grid min-h-[760px] max-w-[1180px] overflow-hidden rounded-[28px] border border-white/15 bg-[#fbf8f2] shadow-[0_30px_90px_rgba(0,0,0,.42)] lg:grid-cols-[.82fr_1.18fr]"
         >
+          <div className="relative h-[260px] overflow-hidden bg-[#f8f4ec] sm:h-[300px] lg:hidden">
+            <img
+              src={MOBILE_HERO_IMAGE}
+              alt="Khan Couture bridal collection"
+              loading="eager"
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover object-center"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#240909]/70 to-transparent" />
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/40 bg-[#240909]/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[2px] text-white backdrop-blur-md">
+              Khan Couture
+            </div>
+          </div>
+
           <div className="relative hidden overflow-hidden lg:block">
             <motion.img
               initial={{ scale: 1.08 }}
@@ -288,8 +303,8 @@ export default function Signup() {
 
           <div className="flex items-center justify-center px-6 py-10 sm:px-10 lg:px-12">
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="w-full max-w-[560px]">
-              <div className="mb-7 flex items-end justify-between gap-4">
-                <div>
+              <div className="mb-7 flex items-center justify-center text-center lg:items-end lg:justify-between lg:text-left">
+                <div className="w-full">
                   <p className="mb-2 text-xs font-bold uppercase tracking-[3px] text-[#a46d4b]">New member</p>
                   <h1 className="text-4xl font-semibold tracking-tight text-[#590f0f]">Create your account</h1>
                 </div>

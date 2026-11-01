@@ -9,6 +9,7 @@ import { api } from "../services/api";
 
 const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 const HERO_IMAGE = "https://res.cloudinary.com/divypkla0/image/upload/v1780204673/lhnga2_ohuexo.png";
+const MOBILE_HERO_IMAGE = "https://res.cloudinary.com/divypkla0/image/upload/c_pad,w_900,h_520,q_auto,f_auto,b_rgb:f8f4ec/v1780204673/lhnga2_ohuexo.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -64,6 +65,20 @@ export default function Login() {
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto grid min-h-[720px] max-w-[1180px] overflow-hidden rounded-[28px] border border-white/15 bg-[#fbf8f2] shadow-[0_30px_90px_rgba(0,0,0,.42)] lg:grid-cols-[1.08fr_.92fr]"
         >
+          <div className="relative h-[260px] overflow-hidden bg-[#f8f4ec] sm:h-[300px] lg:hidden">
+            <img
+              src={MOBILE_HERO_IMAGE}
+              alt="Khan Couture wedding collection"
+              loading="eager"
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-contain object-center"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#240909]/55 to-transparent" />
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/40 bg-[#240909]/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[2px] text-white backdrop-blur-md">
+              Khan Couture
+            </div>
+          </div>
+
           <div className="relative hidden overflow-hidden lg:block">
             <motion.img
               initial={{ scale: 1.08 }}
@@ -93,10 +108,12 @@ export default function Login() {
               transition={{ delay: 0.18, duration: 0.65 }}
               className="w-full max-w-[420px]"
             >
-              <img src="/images/kclogo.png" alt="Khan Couture" className="mb-8 h-16 object-contain lg:hidden" />
-              <p className="mb-3 text-xs font-bold uppercase tracking-[3px] text-[#a46d4b]">Member access</p>
-              <h1 className="text-4xl font-semibold tracking-tight text-[#590f0f] sm:text-5xl">Welcome back</h1>
-              <p className="mt-3 text-sm leading-6 text-[#6d5555]">Sign in to view orders, save favourites, and continue shopping.</p>
+              <img src="/images/kclogo.png" alt="Khan Couture" className="mx-auto mb-8 h-14 object-contain lg:hidden" />
+              <div className="text-center lg:text-left">
+                <p className="mb-3 text-xs font-bold uppercase tracking-[3px] text-[#a46d4b]">Member access</p>
+                <h1 className="text-4xl font-semibold tracking-tight text-[#590f0f] sm:text-5xl">Welcome back</h1>
+                <p className="mt-3 text-sm leading-6 text-[#6d5555]">Sign in to view orders, save favourites, and continue shopping.</p>
+              </div>
 
               <form onSubmit={handleLogin} noValidate className="mt-8 space-y-5">
                 <div>
