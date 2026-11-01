@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
-import "./Particles.css";
+import "./particles.css";
 
 // Gold and Mist color scheme for your theme
 const defaultColors = ["#FFD700", "#F5F5F5", "#FFF8DC"];

@@ -24,7 +24,7 @@ export default function Wedding() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
 
-  const BASE_URL = "http://localhost:5000/api";
+  const BASE_URL = "https://khans-couture.onrender.com/api";
   const exploreRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import Header from "../components/Header";
-import BlurText from "../components/BlurText";
+import BlurText from "../components/blurtext";
 import ShinyText from "../components/ShinyText";
 import ProductCard from "../components/ProductCard";
 import CircularGallery from "../components/CircularGallery";
@@ -41,8 +41,8 @@ export default function Home() {
       try {
         setLoading(true);
 
-        const trendingRes = await axios.get("http://localhost:5000/api/products/trending");
-        const allRes = await axios.get("http://localhost:5000/api/products");
+        const trendingRes = await axios.get("https://khans-couture.onrender.com/api/products/trending");
+        const allRes = await axios.get("https://khans-couture.onrender.com/api/products");
 
         const mappedTrending = trendingRes.data.map(p => ({
           ...p,

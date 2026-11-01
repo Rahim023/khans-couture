@@ -13,7 +13,7 @@ export default function CollectionPage({ mode = "products" }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const currency = country === "Canada" ? "CA$" : country === "USA" ? "US$" : "₹";
-  const API_BASE = import.meta.env?.VITE_API_BASE || "http://localhost:5000";
+  const API_BASE = import.meta.env?.VITE_API_BASE || "https://khans-couture.onrender.com";
 
   useEffect(() => {
     const endpoint = isSignature ? "/api/signatures" : "/api/products";

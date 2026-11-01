@@ -10,7 +10,7 @@ export default function SearchModal({ onClose }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products")
+      .get("https://khans-couture.onrender.com/api/products")
       .then((response) => {
         setAllProducts(Array.isArray(response.data) ? response.data : []);
       })

@@ -40,7 +40,7 @@ export default function OrderStatus() {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/orders/my-orders", {
+        const res = await fetch("https://khans-couture.onrender.com/api/orders/my-orders", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -66,7 +66,7 @@ export default function OrderStatus() {
           }
 
           if (currentOrderId && !existingSelected) {
-            const directRes = await fetch(`http://localhost:5000/api/orders/${currentOrderId}`, {
+            const directRes = await fetch(`https://khans-couture.onrender.com/api/orders/${currentOrderId}`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -103,7 +103,7 @@ export default function OrderStatus() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/api/orders/cancel/${order._id}`,
+        `https://khans-couture.onrender.com/api/orders/cancel/${order._id}`,
         {
           method: "PUT",
           headers: {
@@ -130,7 +130,7 @@ export default function OrderStatus() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`http://localhost:5000/api/orders/${order._id}`, {
+      const res = await fetch(`https://khans-couture.onrender.com/api/orders/${order._id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -150,7 +150,7 @@ export default function OrderStatus() {
   const handleDeleteHistory = async (entryId) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:5000/api/orders/${entryId}`, {
+      const res = await fetch(`https://khans-couture.onrender.com/api/orders/${entryId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

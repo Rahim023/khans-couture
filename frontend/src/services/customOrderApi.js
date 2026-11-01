@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_API_BASE || "https://khans-couture.onrender.com";
 
 export const postCustomOrder = async (formData) => {
   try {
@@ -15,7 +15,7 @@ export const postCustomOrder = async (formData) => {
     return res.json();
   } catch (error) {
     if (error instanceof TypeError && error.message.includes('fetch')) {
-      throw new Error("Connection refused: Unable to reach the server. Please ensure the backend is running on http://localhost:5000");
+      throw new Error("Connection refused: Unable to reach the server. Please ensure the backend is running on https://khans-couture.onrender.com");
     }
     throw error;
   }
