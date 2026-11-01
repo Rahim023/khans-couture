@@ -37,9 +37,10 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoutes);
+// Backward-compatible auth paths for older frontend deployments.
+app.use("/auth", authRoutes);
 app.use("/api/shop", shopRoutes);
 app.use("/api/cart", cartRoutes);
-app.use("/api/auth", authRoutes);
 app.use("/api/wishlist", wishlistRoutes); 
 app.use("/api/collections", collectionRoutes);
 app.use("/api/products", productRoutes);
