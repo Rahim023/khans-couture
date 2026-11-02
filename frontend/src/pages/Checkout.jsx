@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { useCart } from "./CartContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Trash2, ShoppingCart, Lock, CheckCircle } from "lucide-react";
+import { Trash2, ShoppingCart, Lock, CheckCircle, MapPin, Mail, Phone, User, Navigation } from "lucide-react";
 import { useCurrency } from "../context/CurrencyContext";
 import Footer from "../components/Footer";
 import PopupModal from "../components/Popupmodal";
@@ -17,6 +17,11 @@ export default function Checkout() {
   const [error, setError] = React.useState("");
   const [showCheckoutError, setShowCheckoutError] = React.useState(false);
   const [showCheckoutConfirm, setShowCheckoutConfirm] = React.useState(false);
+  const [addressSuggestions, setAddressSuggestions] = React.useState([]);
+  const [addressVerified, setAddressVerified] = React.useState(false);
+  const [addressSearching, setAddressSearching] = React.useState(false);
+  const [addressSearchStatus, setAddressSearchStatus] = React.useState("");
+  const [shippingErrors, setShippingErrors] = React.useState({});
   const userData = React.useMemo(() => {
     try {
       return JSON.parse(localStorage.getItem("user") || "null") || {};
@@ -46,6 +51,87 @@ export default function Checkout() {
     }
   }, [shipping.fullName, userData.email]);
 
+  React.useEffect(() => {
+    const query = shipping.addressLine1.trim();
+    if (query.length < 4) {
+      setAddressSuggestions([]);
+      setAddressSearching(false);
+      setAddressSearchStatus("");
+      return;
+    }
+    const timer = window.setTimeout(async () => {
+      setAddressSearching(true);
+      setAddressSearchStatus("");
+      const controller = new AbortController();
+      try {
+        const params = new URLSearchParams({
+          format: "jsonv2",
+          addressdetails: "1",
+          limit: "5",
+          q: `${query}${shipping.country ? `, ${shipping.country}` : ""}`,
+        });
+        let results = [];
+
+        try {
+          const photonParams = new URLSearchParams({ q: `${query}, ${shipping.country}`, limit: "8", lang: "en" });
+          const photonResponse = await fetch(`https://photon.komoot.io/api/?${photonParams}`, {
+            signal: controller.signal,
+          });
+          if (photonResponse.ok) {
+            const photonData = await photonResponse.json();
+            results = (photonData.features || []).map((feature, index) => {
+              const property = feature.properties || {};
+              const street = [property.housenumber, property.street].filter(Boolean).join(" ");
+              const displayName = [property.name, street, property.city || property.town || property.village, property.state, property.postcode, property.country]
+                .filter(Boolean)
+                .filter((value, position, values) => values.indexOf(value) === position)
+                .join(", ");
+              return {
+                key: `photon-${property.osm_id || index}`,
+                display_name: displayName || property.name || query,
+                address: {
+                  house_number: property.housenumber,
+                  road: property.street,
+                  city: property.city || property.town || property.village,
+                  state: property.state,
+                  postcode: property.postcode,
+                  country: property.country,
+                },
+              };
+            });
+          }
+        } catch (photonError) {
+          if (photonError.name !== "AbortError") results = [];
+        }
+
+        if (results.length === 0) {
+          const response = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
+            headers: { "Accept-Language": "en" },
+            signal: controller.signal,
+          });
+          if (response.ok) {
+            const nominatimResults = await response.json();
+            results = nominatimResults.map((item) => ({
+              key: `nominatim-${item.place_id}`,
+              display_name: item.display_name,
+              address: item.address || {},
+            }));
+          }
+        }
+
+        setAddressSuggestions(results);
+        if (results.length === 0) setAddressSearchStatus("No matching address found. Check the street, city and country.");
+      } catch (searchError) {
+        if (searchError.name === "AbortError") return;
+        setAddressSuggestions([]);
+        setAddressSearchStatus("Address search is unavailable. Check your connection and try again.");
+      } finally {
+        setAddressSearching(false);
+      }
+    }, 450);
+    return () => window.clearTimeout(timer);
+  }, [shipping.addressLine1, shipping.country]);
+
   const currencySymbol =
     country === "Canada" ? "CA$" :
     country === "USA" ? "US$" :
@@ -62,6 +148,41 @@ export default function Checkout() {
   const handleShippingChange = (e) => {
     const { name, value } = e.target;
     setShipping((prev) => ({ ...prev, [name]: value }));
+    setShippingErrors((prev) => ({ ...prev, [name]: "" }));
+    if (name === "addressLine1") {
+      setAddressVerified(false);
+      setShippingErrors((prev) => ({ ...prev, addressLine1: "" }));
+      setAddressSearchStatus("");
+    }
+  };
+
+  const selectAddress = (suggestion) => {
+    const parts = suggestion.address || {};
+    setShipping((prev) => ({
+      ...prev,
+      addressLine1: suggestion.display_name || prev.addressLine1,
+      city: parts.city || parts.town || parts.village || parts.county || prev.city,
+      state: parts.state || parts.region || prev.state,
+      postalCode: parts.postcode || prev.postalCode,
+      country: parts.country || prev.country,
+    }));
+    setAddressVerified(true);
+    setAddressSuggestions([]);
+    setShippingErrors((prev) => ({ ...prev, addressLine1: "", postalCode: "", city: "", country: "" }));
+  };
+
+  const validateShipping = () => {
+    const errors = {};
+    if (shipping.fullName.trim().length < 2) errors.fullName = "Enter your full name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(shipping.email.trim())) errors.email = "Enter a valid email address.";
+    if (!/^[+\d][\d\s()-]{6,}$/.test(shipping.phone.trim())) errors.phone = "Enter a valid phone number.";
+    if (!shipping.addressLine1.trim()) errors.addressLine1 = "Enter your street address.";
+    else if (!addressVerified) errors.addressLine1 = "Select a verified address from the suggestions.";
+    if (!shipping.city.trim()) errors.city = "Enter your city.";
+    if (!shipping.postalCode.trim()) errors.postalCode = "Enter your postal code.";
+    if (!shipping.country.trim()) errors.country = "Enter your country.";
+    setShippingErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const openCheckoutValidation = (message) => {
@@ -81,8 +202,8 @@ export default function Checkout() {
       openCheckoutValidation("Every item must have a selected size and valid quantity.");
       return;
     }
-    if (!shipping.fullName || !shipping.email || !shipping.phone || !shipping.addressLine1 || !shipping.city || !shipping.postalCode || !shipping.country) {
-      openCheckoutValidation("Please complete the shipping information before continuing.");
+    if (!validateShipping()) {
+      document.querySelector("[data-shipping-form]")?.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
     setShowCheckoutConfirm(true);
@@ -101,9 +222,7 @@ export default function Checkout() {
       return;
     }
 
-    if (!shipping.fullName || !shipping.email || !shipping.phone || !shipping.addressLine1 || !shipping.city || !shipping.postalCode || !shipping.country) {
-      setError("Please complete the shipping information before continuing.");
-      setShowCheckoutError(true);
+    if (!validateShipping()) {
       return;
     }
 
@@ -122,7 +241,7 @@ export default function Checkout() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: token ? `Bearer ${token}` : "",
         },
         body: JSON.stringify({
           customer: {
@@ -197,7 +316,7 @@ export default function Checkout() {
       />
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-brand-navy via-brand-purple to-brand-charcoal py-16 text-center border-b-4 border-brand-gold">
+      <div className="bg-gradient-to-r from-brand-navy via-brand-purple to-brand-charcoal py-10 md:py-16 text-center border-b-4 border-brand-gold px-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -211,7 +330,7 @@ export default function Checkout() {
         <p className="text-brand-gold/80 text-lg mt-2">Review your order before placing</p>
       </div>
 
-      <section className="py-16 px-6 md:px-20">
+      <section className="py-8 md:py-16 px-4 sm:px-6 md:px-20">
         {cart.length === 0 ? (
           <div className="text-center py-20">
             <ShoppingCart size={80} className="mx-auto text-brand-gold/40 mb-6" />
@@ -225,12 +344,12 @@ export default function Checkout() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white shadow-xl border-2 border-brand-gold rounded-3xl p-10 mb-8"
+              className="bg-white shadow-xl border border-brand-gold/40 rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-10 mb-6 md:mb-8"
             >
               {/* SUMMARY HEADER */}
-              <div className="flex items-center gap-3 mb-8 pb-6 border-b-2 border-brand-gold/30">
-                <CheckCircle size={32} className="text-brand-gold" />
-                <h2 className="text-3xl font-serifFancy font-bold text-brand-navy">
+              <div className="flex items-center gap-3 mb-5 md:mb-8 pb-4 md:pb-6 border-b border-brand-gold/30">
+                <CheckCircle size={28} className="text-brand-gold flex-none" />
+                <h2 className="text-2xl md:text-3xl font-serifFancy font-bold text-brand-navy">
                   Order Summary
                 </h2>
               </div>
@@ -242,21 +361,21 @@ export default function Checkout() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="flex justify-between items-center bg-gradient-to-r from-brand-ivory to-brand-mist border border-brand-gold/20 p-6 rounded-2xl hover:border-brand-gold transition-all"
+                    className="flex items-start gap-3 bg-gradient-to-r from-brand-ivory to-brand-mist border border-brand-gold/20 p-3 sm:p-4 md:p-6 rounded-2xl hover:border-brand-gold transition-all"
                   >
                     {/* LEFT SIDE */}
-                    <div className="flex-1">
-                      <p className="text-lg font-semibold text-brand-navy font-serifFancy">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-base md:text-lg font-semibold text-brand-navy font-serifFancy line-clamp-2">
                         {item.title}
                       </p>
-                      <div className="flex gap-6 mt-2 text-sm text-brand-charcoal">
+                      <div className="flex gap-4 mt-2 text-xs sm:text-sm text-brand-charcoal">
                         <p>Size: <span className="font-bold text-brand-gold">{item.size}</span></p>
                         <p>Qty: <span className="font-bold text-brand-gold">{item.quantity}</span></p>
                       </div>
                     </div>
 
                     {/* PRICE */}
-                    <div className="text-right mx-6">
+                    <div className="text-right flex-none">
                       <p className="text-lg font-bold text-brand-gold">
                         {currencySymbol} {(convertPrice(item.price) * item.quantity).toFixed(2)}
                       </p>
@@ -266,7 +385,7 @@ export default function Checkout() {
                     {/* DELETE BUTTON */}
                     <button
                       onClick={() => removeFromCart(item.id, item.size)}
-                      className="p-3 bg-red-100 text-red-600 rounded-full hover:bg-red-600 hover:text-white transition-all duration-300"
+                      className="p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-600 hover:text-white transition-all duration-300 flex-none"
                     >
                       <Trash2 size={20} />
                     </button>
@@ -297,29 +416,51 @@ export default function Checkout() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white shadow-xl border-2 border-brand-gold rounded-3xl p-8 mb-8"
+              className="bg-white shadow-xl border border-brand-gold/40 rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 mb-6 md:mb-8"
+              data-shipping-form
             >
               <h2 className="text-3xl font-serifFancy font-bold text-brand-navy mb-6">Shipping Details</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">Full Name</label>
-                  <input name="fullName" value={shipping.fullName} onChange={handleShippingChange} className="w-full border border-brand-gold/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold" placeholder="Full name" />
+                  <input name="fullName" value={shipping.fullName} onChange={handleShippingChange} className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold ${shippingErrors.fullName ? "border-red-400" : "border-brand-gold/30"}`} placeholder="Full name" />
+                  {shippingErrors.fullName && <p className="mt-1 text-sm text-red-600">{shippingErrors.fullName}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">Email</label>
-                  <input type="email" name="email" value={shipping.email} onChange={handleShippingChange} className="w-full border border-brand-gold/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold" placeholder="you@example.com" />
+                  <input type="email" name="email" value={shipping.email} onChange={handleShippingChange} className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold ${shippingErrors.email ? "border-red-400" : "border-brand-gold/30"}`} placeholder="you@example.com" />
+                  {shippingErrors.email && <p className="mt-1 text-sm text-red-600">{shippingErrors.email}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">Phone Number</label>
-                  <input name="phone" value={shipping.phone} onChange={handleShippingChange} className="w-full border border-brand-gold/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold" placeholder="+91 98765 43210" />
+                  <input type="tel" name="phone" value={shipping.phone} onChange={handleShippingChange} className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold ${shippingErrors.phone ? "border-red-400" : "border-brand-gold/30"}`} placeholder="+91 98765 43210" />
+                  {shippingErrors.phone && <p className="mt-1 text-sm text-red-600">{shippingErrors.phone}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">Country</label>
-                  <input name="country" value={shipping.country} onChange={handleShippingChange} className="w-full border border-brand-gold/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold" placeholder="India" />
+                  <input name="country" value={shipping.country} onChange={handleShippingChange} className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold ${shippingErrors.country ? "border-red-400" : "border-brand-gold/30"}`} placeholder="India" />
+                  {shippingErrors.country && <p className="mt-1 text-sm text-red-600">{shippingErrors.country}</p>}
                 </div>
-                <div className="md:col-span-2">
+                <div className="md:col-span-2 relative">
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">Street Address</label>
-                  <input name="addressLine1" value={shipping.addressLine1} onChange={handleShippingChange} className="w-full border border-brand-gold/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold" placeholder="House number, street, area" />
+                  <div className="relative">
+                    <MapPin size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-gold" />
+                    <input name="addressLine1" value={shipping.addressLine1} onChange={handleShippingChange} autoComplete="street-address" className={`w-full border rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold ${shippingErrors.addressLine1 ? "border-red-400" : addressVerified ? "border-green-500" : "border-brand-gold/30"}`} placeholder="Start typing your street address" />
+                  </div>
+                  {shippingErrors.addressLine1 && <p className="mt-1 text-sm text-red-600">{shippingErrors.addressLine1}</p>}
+                  {addressVerified && !shippingErrors.addressLine1 && <p className="mt-1 text-sm text-green-700 flex items-center gap-1"><CheckCircle size={14} /> Address verified</p>}
+                  {addressSearching && <p className="mt-2 text-sm text-brand-charcoal/60">Searching for addresses...</p>}
+                  {!addressSearching && addressSearchStatus && <p className="mt-2 text-sm text-red-600">{addressSearchStatus}</p>}
+                  {addressSuggestions.length > 0 && (
+                    <div className="absolute z-20 mt-2 w-full rounded-xl border border-brand-gold/30 bg-white shadow-2xl overflow-hidden">
+                      {addressSuggestions.map((suggestion) => (
+                        <button type="button" key={suggestion.key} onClick={() => selectAddress(suggestion)} className="w-full text-left px-4 py-3 border-b border-brand-gold/10 hover:bg-brand-mist flex gap-3">
+                          <Navigation size={16} className="mt-1 text-brand-gold flex-none" />
+                          <span className="text-sm text-brand-charcoal">{suggestion.display_name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">Apartment / Building / Landmark</label>
@@ -327,7 +468,8 @@ export default function Checkout() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">City</label>
-                  <input name="city" value={shipping.city} onChange={handleShippingChange} className="w-full border border-brand-gold/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold" placeholder="City" />
+                  <input name="city" value={shipping.city} onChange={handleShippingChange} className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold ${shippingErrors.city ? "border-red-400" : "border-brand-gold/30"}`} placeholder="City" />
+                  {shippingErrors.city && <p className="mt-1 text-sm text-red-600">{shippingErrors.city}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">State</label>
@@ -335,7 +477,8 @@ export default function Checkout() {
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-brand-charcoal mb-2">Postal Code</label>
-                  <input name="postalCode" value={shipping.postalCode} onChange={handleShippingChange} className="w-full border border-brand-gold/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold" placeholder="Postal code" />
+                  <input name="postalCode" value={shipping.postalCode} onChange={handleShippingChange} className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-gold ${shippingErrors.postalCode ? "border-red-400" : "border-brand-gold/30"}`} placeholder="Postal code" />
+                  {shippingErrors.postalCode && <p className="mt-1 text-sm text-red-600">{shippingErrors.postalCode}</p>}
                 </div>
               </div>
             </motion.div>
@@ -361,7 +504,7 @@ export default function Checkout() {
               <button
                 onClick={clearCart}
                 disabled={loading}
-                className="px-8 py-3 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white rounded-full shadow-lg font-bold transition-all duration-300"
+                className="w-full md:w-auto px-8 py-3 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white rounded-full shadow-lg font-bold transition-all duration-300"
               >
                 Clear Cart
               </button>
@@ -369,7 +512,7 @@ export default function Checkout() {
               <button
                 onClick={handleCheckoutReview}
                 disabled={loading}
-                className="px-8 py-3 bg-gradient-to-r from-brand-gold to-brand-gold text-brand-navy hover:shadow-lg hover:shadow-brand-gold/50 disabled:opacity-50 disabled:cursor-not-allowed rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 group"
+                className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-brand-gold to-brand-gold text-brand-navy hover:shadow-lg hover:shadow-brand-gold/50 disabled:opacity-50 disabled:cursor-not-allowed rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 group"
               >
                 {loading ? (
                   <>
