@@ -11,13 +11,13 @@ export default function FashionCollectionLayout({ assetGroups = {} }) {
   const tertiaryHero = Array.isArray(assetGroups.heroImages) ? assetGroups.heroImages[1] : undefined;
 
   return (
-    <section id="collection-2023" className="w-full bg-[#f7f0e8] py-16">
+    <section id="collection-2023" className="w-full bg-[#f7f0e8] py-10 sm:py-16">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 xl:grid-cols-[35%_65%] items-center">
 
-          <div className="flex flex-col justify-center rounded-[32px] bg-white border border-[#e7d8cb] p-8 sm:p-12 shadow-[0_24px_80px_rgba(0,0,0,0.08)]">
+          <div className="flex flex-col justify-center rounded-[24px] border border-[#e7d8cb] bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.08)] sm:p-12 lg:rounded-[32px]">
             <p className="text-sm uppercase tracking-[0.4em] text-[#b38066]">Vol. 10 · November Edition</p>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-black text-[#590f0f] leading-tight">
+            <h2 className="mt-4 text-[34px] sm:text-5xl lg:text-6xl font-black text-[#590f0f] leading-[1.05]">
               2023 Collection
             </h2>
             <p className="mt-6 text-base sm:text-lg text-[#5a3a2c] max-w-2xl leading-relaxed">
@@ -33,7 +33,7 @@ export default function FashionCollectionLayout({ assetGroups = {} }) {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-[280px_280px] lg:gap-6">
-            <div className="relative row-span-2 overflow-hidden rounded-[28px] bg-[#ede3da]">
+            <div className="relative h-[420px] overflow-hidden rounded-[28px] bg-[#ede3da] sm:h-auto sm:row-span-2">
               {primaryHero && (
                 <img
                   src={primaryHero}

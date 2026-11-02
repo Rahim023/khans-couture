@@ -58,24 +58,24 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#160707] text-[#3d1717]">
       <Header />
-      <main className="relative min-h-screen px-4 pb-6 pt-[118px] sm:px-6 lg:px-10">
+      <main className="relative min-h-screen px-0 pb-0 pt-[118px] sm:px-6 sm:pb-6 lg:px-10">
         <motion.section
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto grid min-h-[720px] max-w-[1180px] overflow-hidden rounded-[28px] border border-white/15 bg-[#fbf8f2] shadow-[0_30px_90px_rgba(0,0,0,.42)] lg:grid-cols-[1.08fr_.92fr]"
+          className="mx-auto grid min-h-[720px] max-w-[1180px] overflow-hidden border border-white/15 bg-[#fbf8f2] shadow-[0_30px_90px_rgba(0,0,0,.42)] sm:rounded-[28px] lg:grid-cols-[1.08fr_.92fr]"
         >
-          <div className="relative h-[260px] overflow-hidden bg-[#f8f4ec] sm:h-[300px] lg:hidden">
+          <div className="relative h-[320px] overflow-hidden bg-[#f8f4ec] sm:h-[300px] lg:hidden">
             <img
               src={MOBILE_HERO_IMAGE}
               alt="Khan Couture wedding collection"
               loading="eager"
-              fetchPriority="high"
-              className="absolute inset-0 h-full w-full object-contain object-center"
+              className="absolute inset-0 h-full w-full object-cover object-center"
             />
-            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#240909]/55 to-transparent" />
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/40 bg-[#240909]/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[2px] text-white backdrop-blur-md">
-              Khan Couture
+            <div className="absolute inset-0 bg-gradient-to-t from-[#240909]/85 via-[#240909]/10 to-[#240909]/25" />
+            <div className="absolute left-6 right-6 bottom-7 text-white">
+              <p className="text-[10px] font-bold uppercase tracking-[3px] text-[#e4c99d]">The couture circle</p>
+              <p className="mt-2 text-3xl font-light leading-tight">Elegance, made personal.</p>
             </div>
           </div>
 
@@ -101,14 +101,13 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center px-6 py-12 sm:px-12 lg:px-14">
+          <div className="flex items-center justify-center rounded-t-[28px] px-6 py-10 sm:px-12 sm:py-12 lg:rounded-none lg:px-14">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.18, duration: 0.65 }}
               className="w-full max-w-[420px]"
             >
-              <img src="/images/kclogo.png" alt="Khan Couture" className="mx-auto mb-8 h-14 object-contain lg:hidden" />
               <div className="text-center lg:text-left">
                 <p className="mb-3 text-xs font-bold uppercase tracking-[3px] text-[#a46d4b]">Member access</p>
                 <h1 className="text-4xl font-semibold tracking-tight text-[#590f0f] sm:text-5xl">Welcome back</h1>

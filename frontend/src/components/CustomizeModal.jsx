@@ -181,29 +181,34 @@ export default function CustomizeModal({ onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-60 flex items-center justify-center px-4 py-6 sm:px-6">
+    <div
+      className="fixed inset-0 z-[100] flex items-end justify-center px-0 py-0 sm:items-center sm:px-6 sm:py-6"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Customize Your Outfit"
+    >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 24, scale: 0.96 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="relative z-10 w-full max-w-5xl max-h-[85vh] overflow-hidden rounded-[32px] border border-[#e8dcc8] bg-[#fffdf7] shadow-[0_40px_120px_rgba(16,16,16,0.22)]"
+        className="relative z-10 w-full max-w-5xl max-h-[92dvh] overflow-hidden rounded-t-[28px] border border-[#e8dcc8] bg-[#fffdf7] shadow-[0_40px_120px_rgba(16,16,16,0.22)] sm:max-h-[85vh] sm:rounded-[32px]"
       >
-        <div className="flex flex-col gap-4 bg-[#130b07] px-8 py-6 text-white sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center justify-between gap-3 bg-[#130b07] px-5 py-5 text-white sm:px-8 sm:py-6">
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-[#d7bea3]">Custom Couture</p>
-            <h2 className="mt-2 text-3xl font-serif font-semibold tracking-tight">Customize Your Outfit</h2>
+            <h2 className="mt-1 text-xl font-serif font-semibold tracking-tight sm:mt-2 sm:text-3xl">Customize Your Outfit</h2>
           </div>
-          <button onClick={onClose} className="rounded-full border border-white/20 bg-white/10 px-4 py-3 text-white transition hover:bg-white/20">
+          <button type="button" aria-label="Close customize form" onClick={onClose} className="shrink-0 rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20">
             <FaTimes />
           </button>
         </div>
 
-        <div className="max-h-[72vh] overflow-y-auto px-8 py-6 sm:px-10">
+        <div className="max-h-[calc(92dvh-84px)] overflow-y-auto px-4 py-5 sm:max-h-[72vh] sm:px-10 sm:py-6">
           {step === 1 ? (
-          <div className="grid gap-5 px-8 py-8 sm:grid-cols-2 sm:px-10">
-            <div className="rounded-[28px] bg-[#f8f0e7] p-8 shadow-sm ring-1 ring-[#e6d5be]/70">
+          <div className="grid gap-4 py-2 sm:grid-cols-2 sm:px-6 sm:py-6">
+            <div className="rounded-[20px] bg-[#f8f0e7] p-5 shadow-sm ring-1 ring-[#e6d5be]/70 sm:rounded-[28px] sm:p-8">
               <div className="flex items-center gap-3 text-[#7b5f48] mb-4">
                 <FaHeartbeat className="h-6 w-6 text-[#a37c50]" />
                 <span className="text-sm uppercase tracking-[0.25em]">Single Order</span>
@@ -221,7 +226,7 @@ export default function CustomizeModal({ onClose }) {
               </button>
             </div>
 
-            <div className="rounded-[28px] bg-[#fff7ed] p-8 shadow-sm ring-1 ring-[#efd2b2]/70">
+            <div className="rounded-[20px] bg-[#fff7ed] p-5 shadow-sm ring-1 ring-[#efd2b2]/70 sm:rounded-[28px] sm:p-8">
               <div className="flex items-center gap-3 text-[#845f3a] mb-4">
                 <FaGem className="h-6 w-6 text-[#b1845c]" />
                 <span className="text-sm uppercase tracking-[0.25em]">Wedding Order</span>
@@ -240,7 +245,7 @@ export default function CustomizeModal({ onClose }) {
             </div>
           </div>
         ) : (
-          <div className="grid gap-6 px-8 py-8 sm:px-10">
+          <div className="grid gap-5 py-2 sm:px-6 sm:py-6">
             <div className="grid gap-6 rounded-[32px] border border-[#e2d1bb] bg-[#fffaf3] p-6 shadow-sm sm:grid-cols-2">
               <div className="space-y-4">
                 <h3 className="text-2xl font-serif font-semibold text-[#2b1810]">{orderType}</h3>

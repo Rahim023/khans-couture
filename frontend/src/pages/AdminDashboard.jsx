@@ -208,7 +208,16 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-[#f7f4ee] font-sansTrend text-brand-charcoal md:flex">
       <aside className="relative z-40 bg-[#271713] text-white md:sticky md:top-0 md:h-screen md:w-[280px] md:flex-none md:p-7">
         <div className="flex items-center justify-between px-5 py-4 md:block md:px-0 md:py-0">
-          <button onClick={() => navigate("/")} className="text-left">
+          <button
+            type="button"
+            aria-label="Return to admin overview"
+            onClick={() => {
+              setTab("overview");
+              setSearch("");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="text-left"
+          >
             <span className="block font-serifFancy text-[22px] font-bold tracking-[0.04em]">Khan's Couture</span>
             <span className="mt-1 block text-[9px] uppercase tracking-[0.38em] text-[#d7bc82]">Administration</span>
           </button>

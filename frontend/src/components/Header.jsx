@@ -138,7 +138,7 @@ export default function Header() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-transparent pointer-events-none" />
 
         {/* TOP ROW */}
-        <div className="relative flex items-center justify-between px-4 sm:px-8 lg:px-14 h-[82px]">
+        <div className="relative flex items-center justify-between px-2 h-[72px] sm:px-8 sm:h-[82px] lg:px-14">
 
           {/* LEFT */}
           <div className="flex items-center gap-3">
@@ -196,7 +196,7 @@ export default function Header() {
               src="/images/kclogo.png"
               alt="Khan Couture"
               className="
-                h-[55px]
+                h-[48px]
                 sm:h-[68px]
                 object-contain
                 transition-all duration-500
@@ -206,7 +206,7 @@ export default function Header() {
           </Link>
 
           {/* RIGHT ICONS */}
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="flex items-center gap-2 sm:gap-5">
 
             {/* SEARCH */}
             <FaSearch
@@ -473,6 +473,28 @@ export default function Header() {
 
               {/* LOGIN / LOGOUT */}
               <div className="pt-4 mt-3 border-t border-[#590f0f]/10">
+                <div className="mb-3 grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => {
+                      setShowChat(true);
+                      setMenuOpen(false);
+                    }}
+                    className="flex items-center justify-center gap-2 py-3 rounded-2xl border border-[#590f0f]/15 bg-white text-[#590f0f] text-xs uppercase tracking-[1.5px]"
+                  >
+                    <FaCommentDots size={15} />
+                    Support
+                  </button>
+                  <select
+                    aria-label="Select currency region"
+                    className="rounded-2xl border border-[#590f0f]/15 bg-white px-3 py-3 text-[#590f0f] outline-none text-xs"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                  >
+                    <option value="Canada">Canada</option>
+                    <option value="USA">USA</option>
+                    <option value="India">India</option>
+                  </select>
+                </div>
                 {!user ? (
                   <button
                     onClick={() => {

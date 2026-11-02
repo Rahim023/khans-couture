@@ -177,88 +177,77 @@ export default function SignatureSeries() {
       </section>
 
       {/* CAROUSEL */}
-      <section id="carousel" className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h3 className="text-4xl font-fancy text-brand-navy mb-6">
+      <section id="carousel" className="overflow-hidden bg-white py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+          <h3 className="text-[34px] leading-tight font-fancy text-brand-navy mb-3 sm:text-4xl md:mb-6">
             Signature Pieces
           </h3>
+          <p className="mx-auto mb-7 max-w-xl text-sm leading-6 text-brand-charcoal/60 sm:text-base md:mb-10">
+            Discover limited pieces shaped by detail, texture and exceptional craftsmanship.
+          </p>
 
-          <div className="relative">
-            <div className="flex items-center justify-center gap-6">
-              <button onClick={prev} className="p-3 rounded-full bg-black/5 hover:bg-black/10">
-                <ChevronLeft />
+          {products.length > 0 ? (
+            <div className="relative mx-auto flex max-w-[650px] items-center justify-center gap-2 sm:gap-4">
+              <button
+                type="button"
+                aria-label="Previous signature piece"
+                onClick={prev}
+                className="absolute left-0 z-30 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#e2d5c4] bg-white shadow-[0_10px_25px_rgba(50,35,25,.16)] text-brand-navy transition hover:bg-brand-gold sm:-left-16 sm:h-12 sm:w-12"
+              >
+                <ChevronLeft size={20} />
               </button>
 
-              <div className="w-[780px] max-w-full flex items-center justify-center">
-                <div className="relative w-full h-[520px]">
-                  {products.map((p, idx) => {
-                    const offset =
-                      (idx - centerIndex + products.length) % products.length;
-                    const isCenter = offset === 0;
-
-                    const posClass =
-                      offset === 0
-                        ? "translate-x-0 z-20 scale-100"
-                        : offset === 1
-                        ? "translate-x-48 z-10 scale-95 opacity-80"
-                        : offset === products.length - 1
-                        ? "-translate-x-48 z-10 scale-95 opacity-80"
-                        : "translate-x-96 z-0 scale-90 opacity-60";
-
-                    return (
-                      <motion.div
-                        key={p._id || p.id}
-                        layout
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6 }}
-                        className={`absolute left-0 right-0 mx-auto w-[70%] md:w-[62%] rounded-3xl overflow-hidden shadow-2xl bg-white ${posClass}`}
-                        style={{
-                          transition:
-                            "transform 0.6s ease, opacity 0.6s ease",
-                        }}
-                      >
-                        <img
-                          src={p.images?.[0] || "https://picsum.photos/900/900?random=11"}
-                          className={`w-full h-[360px] object-cover ${
-                            isCenter ? "" : "filter grayscale-10"
-                          }`}
-                        />
-                        <div className="p-6 bg-white">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <h4 className="text-2xl font-semibold text-brand-navy">
-                                {p.title}
-                              </h4>
-                              <p className="text-sm text-gray-600 mt-1">
-                                {p.tagline}
-                              </p>
-                            </div>
-
-                            <div className="text-right">
-                              <div className="text-sm text-gray-400">
-                                Limited
-                              </div>
-                              <button
-                                onClick={() => navigate(`/signature/${p.slug || p._id || p.id}`)}
-                                className="mt-2 inline-flex items-center gap-2 px-3 py-2 rounded-full border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white"
-                              >
-                                View Piece
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
+              <motion.div
+                key={products[centerIndex]?._id || products[centerIndex]?.id || centerIndex}
+                initial={{ opacity: 0, x: 18 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="mx-auto w-[calc(100%-52px)] max-w-[500px] overflow-hidden rounded-[22px] border border-[#eadfce] bg-white text-left shadow-[0_18px_55px_rgba(55,38,24,.12)] sm:w-[calc(100%-130px)] sm:max-w-[520px] sm:rounded-[28px]"
+              >
+                <div className="relative h-[390px] overflow-hidden bg-brand-mist sm:h-[460px] md:h-[520px]">
+                  <img
+                    src={products[centerIndex]?.images?.[0] || "https://picsum.photos/900/900?random=11"}
+                    alt={products[centerIndex]?.title || "Signature piece"}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute left-4 top-4 rounded-full border border-white/50 bg-[#2b1711]/75 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                    Limited edition
+                  </div>
                 </div>
-              </div>
 
-              <button onClick={next} className="p-3 rounded-full bg-black/5 hover:bg-black/10">
-                <ChevronRight />
+                <div className="p-5 sm:p-6">
+                  <div>
+                    <h4 className="line-clamp-2 text-xl font-semibold leading-tight text-brand-navy sm:text-2xl">
+                      {products[centerIndex]?.title}
+                    </h4>
+                    <p className="mt-2 min-h-[40px] text-sm leading-5 text-gray-600">
+                      {products[centerIndex]?.tagline || "A signature piece crafted with exceptional attention to detail."}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/signature/${products[centerIndex]?.slug || products[centerIndex]?._id || products[centerIndex]?.id}`)}
+                    className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-navy px-5 py-3.5 text-sm font-bold text-brand-ivory shadow-md transition hover:bg-brand-gold hover:text-brand-navy sm:w-auto"
+                  >
+                    View Piece <ChevronRight size={16} />
+                  </button>
+                </div>
+              </motion.div>
+
+              <button
+                type="button"
+                aria-label="Next signature piece"
+                onClick={next}
+                className="absolute right-0 z-30 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#e2d5c4] bg-white shadow-[0_10px_25px_rgba(50,35,25,.16)] text-brand-navy transition hover:bg-brand-gold sm:-right-16 sm:h-12 sm:w-12"
+              >
+                <ChevronRight size={20} />
               </button>
             </div>
-          </div>
+          ) : (
+            <div className="mx-auto flex min-h-[420px] max-w-[500px] items-center justify-center rounded-[28px] bg-brand-mist text-sm text-brand-charcoal/60">
+              Loading signature pieces...
+            </div>
+          )}
         </div>
       </section>
 
@@ -271,21 +260,21 @@ export default function SignatureSeries() {
             <p className="mt-4 leading-7 text-brand-charcoal/65">Study the embroidery, texture and delicate finishing that make every signature piece unmistakably yours.</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:grid-rows-[280px_280px]">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-12 md:grid-rows-[280px_280px]">
             {macroShots.length >= 4 ? (
               <>
-                <div className="group relative overflow-hidden rounded-[28px] shadow-xl md:col-span-7 md:row-span-2">
-                  <img src={macroShots[0]} className="h-full min-h-[420px] w-full object-cover transition duration-700 group-hover:scale-105" />
+                <div className="group relative col-span-2 h-[420px] overflow-hidden rounded-[22px] shadow-xl sm:h-[520px] md:col-span-7 md:row-span-2 md:h-auto md:min-h-[420px] md:rounded-[28px]">
+                  <img src={macroShots[0]} alt="Signature detail: crafted finish" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-                  <span className="absolute bottom-6 left-6 text-xs font-bold uppercase tracking-[0.25em] text-white">Crafted finish</span>
+                  <span className="absolute bottom-5 left-5 text-[10px] font-bold uppercase tracking-[0.22em] text-white sm:bottom-6 sm:left-6 sm:text-xs sm:tracking-[0.25em]">Crafted finish</span>
                 </div>
 
-                <div className="group relative overflow-hidden rounded-[28px] shadow-xl md:col-span-5">
-                  <img src={macroShots[1]} className="h-full min-h-[280px] w-full object-cover transition duration-700 group-hover:scale-105" />
+                <div className="group relative h-[210px] overflow-hidden rounded-[18px] shadow-lg sm:h-[280px] md:col-span-5 md:h-full md:min-h-[280px] md:rounded-[28px] md:shadow-xl">
+                  <img src={macroShots[1]} alt="Signature detail one" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
 
-                <div className="group relative overflow-hidden rounded-[28px] shadow-xl md:col-span-5">
-                  <img src={macroShots[2]} className="h-full min-h-[280px] w-full object-cover transition duration-700 group-hover:scale-105" />
+                <div className="group relative h-[210px] overflow-hidden rounded-[18px] shadow-lg sm:h-[280px] md:col-span-5 md:h-full md:min-h-[280px] md:rounded-[28px] md:shadow-xl">
+                  <img src={macroShots[2]} alt="Signature detail two" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
               </>
             ) : (

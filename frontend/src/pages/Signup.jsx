@@ -260,24 +260,24 @@ export default function Signup() {
         </div>
       )}
 
-      <main className="relative min-h-screen px-4 pb-6 pt-[118px] sm:px-6 lg:px-10">
+      <main className="relative min-h-screen px-0 pb-0 pt-[118px] sm:px-6 sm:pb-6 lg:px-10">
         <motion.section
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto grid min-h-[760px] max-w-[1180px] overflow-hidden rounded-[28px] border border-white/15 bg-[#fbf8f2] shadow-[0_30px_90px_rgba(0,0,0,.42)] lg:grid-cols-[.82fr_1.18fr]"
+          className="mx-auto grid min-h-[760px] max-w-[1180px] overflow-hidden border border-white/15 bg-[#fbf8f2] shadow-[0_30px_90px_rgba(0,0,0,.42)] sm:rounded-[28px] lg:grid-cols-[.82fr_1.18fr]"
         >
-          <div className="relative h-[260px] overflow-hidden bg-[#f8f4ec] sm:h-[300px] lg:hidden">
+          <div className="relative h-[320px] overflow-hidden bg-[#f8f4ec] sm:h-[300px] lg:hidden">
             <img
               src={MOBILE_HERO_IMAGE}
               alt="Khan Couture bridal collection"
               loading="eager"
-              fetchPriority="high"
-              className="absolute inset-0 h-full w-full object-cover object-center"
+              className="absolute inset-0 h-full w-full object-cover object-[center_35%]"
             />
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#240909]/70 to-transparent" />
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/40 bg-[#240909]/35 px-4 py-2 text-[10px] font-semibold uppercase tracking-[2px] text-white backdrop-blur-md">
-              Khan Couture
+            <div className="absolute inset-0 bg-gradient-to-t from-[#240909]/90 via-[#240909]/15 to-[#240909]/20" />
+            <div className="absolute left-6 right-6 bottom-7 text-white">
+              <p className="text-[10px] font-bold uppercase tracking-[3px] text-[#e4c99d]">Join the couture circle</p>
+              <p className="mt-2 text-3xl font-light leading-tight">Your next occasion starts here.</p>
             </div>
           </div>
 
@@ -301,7 +301,7 @@ export default function Signup() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center px-6 py-10 sm:px-10 lg:px-12">
+          <div className="-mt-1 flex items-center justify-center rounded-t-[28px] px-6 py-10 sm:px-10 sm:py-12 lg:mt-0 lg:rounded-none lg:px-12">
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="w-full max-w-[560px]">
               <div className="mb-7 flex items-center justify-center text-center lg:items-end lg:justify-between lg:text-left">
                 <div className="w-full">

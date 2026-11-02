@@ -59,8 +59,8 @@ const CollectionLayout = ({ assetGroups = {} }) => {
       <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-[#d1a17e]/15 blur-3xl" />
       <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-[#b56e4f]/10 blur-3xl" />
 
-      <div className="relative mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[minmax(360px,1fr)_minmax(520px,0.9fr)] items-center rounded-[48px] border border-[#f0ddd0] bg-white/95 p-8 shadow-[0_30px_120px_rgba(64,14,0,0.08)] backdrop-blur-xl sm:p-12 lg:p-16">
+      <div className="relative mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="grid gap-8 rounded-[28px] border border-[#f0ddd0] bg-white/95 p-5 shadow-[0_30px_120px_rgba(64,14,0,0.08)] backdrop-blur-xl sm:p-12 lg:grid-cols-[minmax(360px,1fr)_minmax(520px,0.9fr)] lg:items-center lg:gap-12 lg:rounded-[48px] lg:p-16">
 
           <div className="space-y-8">
             <div className="inline-flex items-center gap-3 rounded-full border border-[#e7c9b5] bg-[#fff0e7] px-4 py-2 text-sm uppercase tracking-[0.35em] text-[#9c5d44]">
@@ -135,7 +135,7 @@ const CollectionLayout = ({ assetGroups = {} }) => {
                 <img
                   src={featuredHero}
                   alt="Collection highlight"
-                  className="h-48x w-full object-cover"
+                  className="h-[300px] w-full object-cover sm:h-[380px]"
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a08]/55 via-transparent" />

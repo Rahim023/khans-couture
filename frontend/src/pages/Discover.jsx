@@ -185,7 +185,7 @@ export default function Discover() {
       <Header />
 
       {/* HERO: large premium images */}
-      <section className="relative w-full h-[70vh] md:h-[78vh] overflow-hidden">
+      <section className="relative h-[72vh] min-h-[620px] w-full overflow-hidden md:h-[78vh] md:min-h-0">
         {heroItems.length === 0 && (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-gray-500">Loading preview...</div>
@@ -194,7 +194,7 @@ export default function Discover() {
 
         {heroItems.map((h, idx) => (
           <motion.img
-            key={h.id || idx}
+            key={`${h.type || "hero"}-${h.id || idx}-${idx}`}
             src={h.img}
             className="absolute inset-0 w-full h-full object-cover brightness-90"
             initial={{ opacity: 0, scale: 1.03 }}
@@ -208,33 +208,33 @@ export default function Discover() {
           />
         ))}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/5 to-black/75"></div>
 
-        <div className="absolute left-6 bottom-12 z-20 max-w-2xl">
+        <div className="absolute inset-x-0 bottom-8 z-20 mx-auto max-w-2xl px-5 text-center md:bottom-12 md:left-6 md:right-auto md:mx-0 md:px-0 md:text-left">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl md:text-6xl font-fancy text-brand-ivory drop-shadow-lg leading-tight"
+            className="mx-auto text-[38px] font-fancy leading-[1.05] text-brand-ivory drop-shadow-lg md:mx-0 md:text-6xl"
           >
             Discover the <span className="text-brand-gold">Curation</span>
           </motion.h1>
 
-          <p className="mt-4 text-brand-ivory/90 max-w-xl text-lg font-sansTrend">
+          <p className="mx-auto mt-4 max-w-xl text-base leading-6 text-brand-ivory/90 font-sansTrend md:mx-0 md:text-lg">
             Handpicked signatures and exclusive edits — click to explore pieces in full detail.
           </p>
 
-          <div className="mt-6 flex items-center gap-4">
+          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center md:justify-start">
             <button
               onClick={() => navigate("/signature")}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-brand-gold text-brand-navy font-semibold shadow-md"
+              className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-full bg-brand-gold text-brand-navy font-semibold shadow-md"
             >
               View Signatures <ArrowRight size={16} />
             </button>
 
             <button
               onClick={() => navigate("/products")}
-              className="inline-flex items-center gap-3 px-5 py-3 rounded-full border border-brand-ivory text-brand-ivory hover:bg-brand-ivory/10"
+              className="inline-flex items-center justify-center gap-3 px-5 py-3.5 rounded-full border border-brand-ivory text-brand-ivory hover:bg-brand-ivory/10"
             >
               Browse Collection
             </button>
@@ -245,23 +245,23 @@ export default function Discover() {
       <div className="w-full h-[10px] bg-gradient-to-r from-transparent via-brand-gold to-transparent "></div>
 
       {/* SPOTLIGHT: big image grid from combined items */}
-      <section className="px-6 md:px-20 py-12">
-        <h2 className="text-4xl md:text-5xl font-fancy text-brand-navy mb-4">Spotlight Editions</h2>
-        <p className="text-gray-600 max-w-2xl mb-8">A selection from our latest arrivals and signature releases.</p>
+      <section className="px-4 py-10 sm:px-6 md:px-20 md:py-12">
+        <h2 className="text-[34px] leading-tight font-fancy text-brand-navy mb-3 md:text-5xl">Spotlight Editions</h2>
+        <p className="text-gray-600 max-w-2xl mb-6 text-sm leading-6 md:mb-8 md:text-base">A selection from our latest arrivals and signature releases.</p>
 
         {loading ? (
           <div className="text-gray-500">Loading...</div>
         ) : error ? (
           <div className="text-red-500">{error}</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
             {combined.slice(0, 6).map((item, i) => (
               <motion.div
                 key={`${item.type || 'item'}-${item.id || i}-${i}`}
                 whileHover={{ scale: 1.02 }}
                 className="bg-white rounded-3xl overflow-hidden shadow-xl cursor-pointer"
               >
-                <div className="relative h-96">
+                <div className="relative h-[360px] sm:h-80 md:h-96">
                   <img
                     src={item.img || "/images/collections/signature/signature-1.jpg"}
                     className="w-full h-full object-cover"
@@ -312,10 +312,10 @@ export default function Discover() {
       </section>
 
       {/* CURATED TILES */}
-      <section className="px-6 md:px-20 py-16">
+      <section className="px-4 py-12 sm:px-6 md:px-20 md:py-16">
         <div className="mb-8 max-w-2xl">
           <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#a18457]">Find your expression</p>
-          <h3 className="mt-3 text-4xl font-fancy text-brand-navy md:text-5xl">Curated for Your Story</h3>
+          <h3 className="mt-3 text-[34px] leading-tight font-fancy text-brand-navy md:text-5xl">Curated for Your Story</h3>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -328,7 +328,7 @@ export default function Discover() {
               key={label}
               whileHover={{ y: -8 }}
               onClick={() => action === "customise" ? setShowCustomizeModal(true) : navigate(path)}
-              className="group relative h-[380px] overflow-hidden rounded-[26px] text-left shadow-[0_18px_45px_rgba(63,48,36,.12)]"
+              className="group relative h-[340px] overflow-hidden rounded-[22px] text-left shadow-[0_18px_45px_rgba(63,48,36,.12)] sm:h-[380px] sm:rounded-[26px]"
             >
               <img src={img} alt={label} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />

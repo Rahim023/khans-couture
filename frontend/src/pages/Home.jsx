@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import Header from "../components/Header";
-import BlurText from "../components/blurtext";
 import ShinyText from "../components/ShinyText";
 import ProductCard from "../components/ProductCard";
 import CircularGallery from "../components/CircularGallery";
@@ -218,28 +217,25 @@ export default function Home() {
       <Sparkles />
 
       {/* HERO */}
-      <section className="relative flex flex-col items-center justify-center text-center overflow-hidden min-h-[650px] md:min-h-[900px] pt-10">
+      <section className="relative flex min-h-[580px] flex-col items-center justify-center overflow-hidden px-5 text-center pt-28 md:min-h-[900px] md:px-0 md:pt-10">
         <div className="absolute inset-0 -z-10 opacity-80">
           <Silk speed={5} scale={1.2} highlightColor="#D4C7B0" noiseIntensity={0.05} rotation={0} />
         </div>
         <GradientOrbs />
 
-        <BlurText
-          text="Discover Your Royal Style!"
-          delay={150}
-          animateBy="words"
-          direction="top"
-          className="text-4xl md:text-7xl font-bold text-brand-ivory drop-shadow-xl tracking-wide"
-        />
+        <h1 className="relative z-20 max-w-[350px] text-[38px] font-bold leading-[1.08] tracking-wide text-brand-maroon drop-shadow-sm md:max-w-[900px] md:text-7xl">
+          Discover Your Royal Style!
+        </h1>
 
         <ShinyText
           text="Curated collections crafted for elegance."
           speed={3}
-          className="mt-4 text-3xl md:text-4xl font-script text-brand-gold drop-shadow-2xl"
+          className="mt-4 max-w-[320px] text-2xl leading-8 md:max-w-none md:text-4xl font-script text-brand-gold drop-shadow-2xl"
         />
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="relative z-20 mt-8 flex w-full max-w-[300px] flex-col items-stretch justify-center gap-3 sm:max-w-none sm:w-auto sm:flex-row sm:items-center">
           <motion.button
+            type="button"
             onClick={() => scrollToSection("trending")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
@@ -249,6 +245,7 @@ export default function Home() {
           </motion.button>
 
           <motion.button
+            type="button"
             onClick={() => setShowCustomize(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
