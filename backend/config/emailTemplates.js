@@ -396,55 +396,6 @@ export const orderConfirmationAdminTemplate = (order, customer) => `
 </html>
 `;
 
-export const otpVerificationTemplate = (otp, username) => `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 500px; margin: 0 auto; background: #f9f7f3; padding: 20px; }
-        .header { background: linear-gradient(to right, #2a1a0f, #4d3528); color: #e6d4bc; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
-        .content { background: white; padding: 30px; text-align: center; }
-        .otp-box { background: linear-gradient(to right, #fbf7f1, #f9f7f3); padding: 20px; border-radius: 8px; margin: 20px 0; }
-        .otp-code { font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #d4a574; font-family: monospace; }
-        .warning { background: #ffe0e0; padding: 15px; border-radius: 4px; margin: 15px 0; font-size: 12px; }
-        .footer { background: #f9f7f3; padding: 20px; text-align: center; font-size: 12px; color: #666; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🔐 Khan's Couture</h1>
-            <p>Your Verification Code</p>
-        </div>
-        
-        <div class="content">
-            <p>Hi <strong>${username}</strong>,</p>
-            
-            <p>Use the code below to verify your email address and activate your Khan's Couture account:</p>
-            
-            <div class="otp-box">
-                <div class="otp-code">${otp}</div>
-            </div>
-            
-            <p>This code will expire in <strong>10 minutes</strong>.</p>
-            
-            <div class="warning">
-                <strong>⚠️ Security Warning:</strong> Never share this code with anyone. Khan's Couture staff will never ask for this code.
-            </div>
-            
-            <p>If you didn't request this code, please ignore this email.</p>
-        </div>
-        
-        <div class="footer">
-            <p>© 2024 Khan's Couture. All rights reserved.</p>
-        </div>
-    </div>
-</body>
-</html>
-`;
-
 export const newsletterWelcomeTemplate = (email) => `
 <!DOCTYPE html>
 <html>

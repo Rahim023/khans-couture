@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { CartProvider } from "./pages/CartContext";
 import { WishlistProvider } from "./pages/WishlistContext";
 import { CurrencyProvider } from "./context/CurrencyContext";
+import ProjectDisclaimer from "./components/ProjectDisclaimer";
 
 
 // 🔹 Styles
@@ -69,6 +70,7 @@ export default function App() {
     <CartProvider>
       <WishlistProvider>
         <Router>
+          <ProjectDisclaimer />
           <ScrollToTop />
           <Routes>
             {/* 🔹 Home */}

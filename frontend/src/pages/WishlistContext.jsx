@@ -1,6 +1,7 @@
 // src/pages/WishlistContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { api } from "../services/api";
 
 const WishlistContext = createContext();
 export const useWishlist = () => useContext(WishlistContext);
@@ -11,7 +12,7 @@ export const WishlistProvider = ({ children }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const axiosInstance = axios.create({
-    baseURL: "https://khans-couture.onrender.com/api",
+    baseURL: api.defaults.baseURL,
   });
 
   axiosInstance.interceptors.request.use((config) => {

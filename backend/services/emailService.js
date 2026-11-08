@@ -4,7 +4,6 @@ import {
   customOrderAdminTemplate,
   orderConfirmationCustomerTemplate,
   orderConfirmationAdminTemplate,
-  otpVerificationTemplate,
   newsletterWelcomeTemplate,
 } from "../config/emailTemplates.js";
 
@@ -90,29 +89,6 @@ export const sendOrderConfirmationAdminEmail = async (order, customer) => {
     console.log(`✅ Order confirmation admin email sent to ${adminEmail}`);
   } catch (error) {
     console.error("❌ Failed to send order confirmation admin email:", error.message);
-    throw error;
-  }
-};
-
-// ============================================
-// OTP VERIFICATION EMAIL
-// ============================================
-
-export const sendOTPVerificationEmail = async (email, otp, username) => {
-  try {
-    const transporter = getEmailTransporter();
-    const html = otpVerificationTemplate(otp, username);
-
-    await transporter.sendMail({
-      from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
-      to: email,
-      subject: "🔐 Verify Your Khan's Couture Account",
-      html,
-    });
-
-    console.log(`✅ OTP verification email sent to ${email}`);
-  } catch (error) {
-    console.error("❌ Failed to send OTP email:", error.message);
     throw error;
   }
 };

@@ -39,6 +39,9 @@ export default function Login() {
         password,
       });
 
+      if (!res.data.token || !res.data._id) {
+        throw new Error("The server returned an incomplete sign-in response. Please try again.");
+      }
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify({
         _id: res.data._id,
@@ -49,7 +52,14 @@ export default function Login() {
 
       navigate(res.data.isAdmin || res.data.role === "admin" ? "/admin" : "/", { replace: true });
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid email or password");
+      const response = err.response;
+      setError(response?.status === 403 && response.data?.requiresVerification
+        ? "This server still requires email verification. Please contact the site administrator to update the backend."
+        : response?.data?.message || (response
+        ? "Unable to sign in. Please try again."
+        : err.request
+          ? "Unable to reach the server. Please wait and try again."
+          : err.message));
     } finally {
       setLoading(false);
     }
@@ -173,9 +183,9 @@ export default function Login() {
                 </label>
 
                 {error && (
-                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
-                    {error}
-                  </motion.p>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+                    <p>{error}</p>
+                  </motion.div>
                 )}
 
                 <button

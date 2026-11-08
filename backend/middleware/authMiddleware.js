@@ -1,6 +1,7 @@
 // backend/middleware/authMiddleware.js
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { hasAdminAccess } from "../utils/adminAccess.js";
 
 export const protect = async (req, res, next) => {
   let token = req.headers.authorization?.split(" ")[1];
@@ -18,11 +19,7 @@ export const protect = async (req, res, next) => {
 };
 
 export const requireAdmin = (req, res, next) => {
-  const adminEmails = String(process.env.ADMIN_EMAILS || "")
-    .split(",").map((email) => email.trim().toLowerCase()).filter(Boolean);
-  const isAdmin = req.user?.role === "admin" ||
-    (req.user?.email && adminEmails.includes(String(req.user.email).toLowerCase()));
-  if (!isAdmin) return res.status(403).json({ message: "Admin access required" });
+  if (!hasAdminAccess(req.user)) return res.status(403).json({ message: "Admin access required" });
   next();
 };
 export default protect;

@@ -12,7 +12,6 @@ import {
   ShieldCheck,
   Sparkles,
   UserRound,
-  X,
 } from "lucide-react";
 import Header from "../components/Header";
 import { api } from "../services/api";
@@ -49,10 +48,6 @@ export default function Signup() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [verificationEmail, setVerificationEmail] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
-  const [verificationMessage, setVerificationMessage] = useState("");
 
   const emailIsValid = EMAIL_PATTERN.test(formData.email.trim());
 
@@ -112,37 +107,16 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      await api.post("/auth/register", {
+      const response = await api.post("/auth/register", {
         ...formData,
         email: formData.email.trim().toLowerCase(),
       });
-      setSuccess(true);
-      setVerificationEmail(formData.email.trim().toLowerCase());
-      setVerificationMessage("Enter the 6-digit code sent to your email");
-    } catch (error) {
-      const message = error.response?.data?.message || "Unable to create account";
-      if (/email|domain|address|valid|did you mean/i.test(message)) {
-        setErrors({ email: message });
-      } else {
-        setErrors({ api: message });
+      if (response.data.requiresVerification) {
+        throw new Error("Your account was created, but the server is still using the old email verification system. Please contact the site administrator.");
       }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const verifyEmail = async (event) => {
-    event.preventDefault();
-    if (!/^\d{6}$/.test(verificationCode)) {
-      setVerificationMessage("Enter a valid 6-digit verification code");
-      return;
-    }
-    setLoading(true);
-    try {
-      const response = await api.post("/auth/verify-email", {
-        email: verificationEmail,
-        code: verificationCode,
-      });
+      if (!response.data.token || !response.data._id) {
+        throw new Error("Your account may have been created, but the server returned an incomplete response. Please try signing in or contact the site administrator.");
+      }
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify({
         _id: response.data._id,
@@ -152,19 +126,16 @@ export default function Signup() {
       }));
       navigate("/", { replace: true });
     } catch (error) {
-      setVerificationMessage(error.response?.data?.message || "Unable to verify this email");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const resendVerification = async () => {
-    setLoading(true);
-    try {
-      const response = await api.post("/auth/resend-verification", { email: verificationEmail });
-      setVerificationMessage(response.data.message || "A new verification code was sent");
-    } catch (error) {
-      setVerificationMessage(error.response?.data?.message || "Unable to resend the code");
+      const message = error.response?.data?.message || (error.response
+        ? "Unable to create account"
+        : error.request
+          ? "Unable to reach the server. Please wait and try again."
+          : error.message);
+      if (/email|domain|address|valid|did you mean/i.test(message)) {
+        setErrors({ email: message });
+      } else {
+        setErrors({ api: message });
+      }
     } finally {
       setLoading(false);
     }
@@ -220,46 +191,6 @@ export default function Signup() {
   return (
     <div className="min-h-screen bg-[#160707] text-[#3d1717]">
       <Header />
-      {success && (
-        <div className="fixed inset-0 z-[100] grid place-items-center bg-[#240909]/75 px-4 backdrop-blur-md">
-          <motion.div initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative w-full max-w-md rounded-3xl bg-[#fffaf3] px-6 py-8 text-center shadow-2xl sm:px-10">
-            <button
-              type="button"
-              onClick={() => {
-                setSuccess(false);
-                setVerificationCode("");
-              }}
-              aria-label="Close email verification"
-              className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border border-[#590f0f]/10 bg-white text-[#590f0f]/70 shadow-sm transition hover:bg-[#590f0f] hover:text-white"
-            >
-              <X size={20} />
-            </button>
-            <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-[#590f0f] text-white"><ShieldCheck /></div>
-            <p className="text-xl font-semibold text-[#590f0f]">Verify your email</p>
-            <p className="mt-2 break-all text-sm text-[#6d5555]">We sent a 6-digit code to <strong>{verificationEmail}</strong></p>
-            <form onSubmit={verifyEmail} className="mt-6">
-              <input
-                type="text"
-                inputMode="numeric"
-                maxLength={6}
-                value={verificationCode}
-                onChange={(event) => setVerificationCode(event.target.value.replace(/\D/g, "").slice(0, 6))}
-                placeholder="000000"
-                autoFocus
-                className="w-full rounded-2xl border border-[#590f0f]/15 bg-white px-4 py-4 text-center text-2xl font-bold tracking-[12px] text-[#590f0f] outline-none focus:border-[#b08a55] focus:ring-4 focus:ring-[#d5b98c]/20"
-              />
-              <p className="mt-3 min-h-5 text-xs font-medium text-[#8a4545]">{verificationMessage}</p>
-              <button type="submit" disabled={loading} className="mt-3 w-full rounded-full bg-[#590f0f] py-4 text-sm font-bold text-white disabled:opacity-60">
-                {loading ? "Verifying..." : "Verify and continue"}
-              </button>
-            </form>
-            <button type="button" onClick={resendVerification} disabled={loading} className="mt-5 text-sm font-bold text-[#590f0f] underline decoration-[#d5b98c] decoration-2 underline-offset-4">
-              Resend verification code
-            </button>
-          </motion.div>
-        </div>
-      )}
-
       <main className="relative min-h-screen px-0 pb-0 pt-[118px] sm:px-6 sm:pb-6 lg:px-10">
         <motion.section
           initial={{ opacity: 0, y: 24 }}

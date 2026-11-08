@@ -1,6 +1,7 @@
 // src/pages/CartContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { api } from "../services/api";
 
 const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
@@ -14,10 +15,8 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const BASE_URL = "https://khans-couture.onrender.com/api";
-
   // 🔥 Axios instance that ALWAYS fetches latest token
-  const axiosInstance = axios.create({ baseURL: BASE_URL });
+  const axiosInstance = axios.create({ baseURL: api.defaults.baseURL });
 
   const isValidToken = (token) => !!token && token.split(".").length === 3;
 

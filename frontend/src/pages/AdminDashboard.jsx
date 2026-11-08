@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { api } from "../services/api";
 import {
   LayoutDashboard, Package, ShoppingBag, Scissors, Users, FileSpreadsheet,
   RefreshCw, LogOut, Search, Plus, Pencil, Trash2, Download, X,
@@ -8,9 +9,7 @@ import {
   Phone, Mail, MapPin, Ruler, CalendarDays, Image as ImageIcon, Eye
 } from "lucide-react";
 
-const API = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL.replace(/\/api\/?$/, "")}/api`
-  : "https://khans-couture.onrender.com/api";
+const API = api.defaults.baseURL;
 const BACKEND_ORIGIN = API.replace(/\/api\/?$/, "");
 const resolveUploadUrl = (url) => {
   if (!url) return "";
@@ -75,11 +74,14 @@ export default function AdminDashboard() {
   const authFetch = async (path, options = {}) => {
     const headers = { ...(options.headers || {}), Authorization: `Bearer ${token}` };
     const response = await fetch(`${API}/admin${path}`, { ...options, headers });
-    if (response.status === 401 || response.status === 403) {
+    if (response.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       navigate("/login", { replace: true });
       throw new Error("Your admin session has expired.");
+    }
+    if (response.status === 403) {
+      throw new Error("This account does not have admin access.");
     }
     if (!response.ok) {
       const body = await response.json().catch(() => ({}));
